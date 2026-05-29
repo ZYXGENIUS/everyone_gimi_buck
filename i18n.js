@@ -24,7 +24,7 @@ const translations = {
     step1: "1. 选择币种",
     step2: "2. 选择网络",
     copyBtn: "复制地址",
-    warningTemplate: "Warning: Send only <span class=\"uppercase font-bold\">{coin}</span> to this deposit address via <span class=\"uppercase font-bold\">{network}</span> network.",
+    warningTemplate: "警告：请仅通过 <span class=\"uppercase font-bold\">{network}</span> 网络向此地址发送 <span class=\"uppercase font-bold\">{coin}</span>。",
     summaryTitle: "当前持有资产摘要",
     footerText: "开源 | 通过 GitHub Actions 自动化",
     copied: "地址已复制！"
@@ -39,7 +39,7 @@ const translations = {
     step1: "1. Sélectionnez la pièce",
     step2: "2. Sélectionnez le réseau",
     copyBtn: "Copier l'adresse",
-    warningTemplate: "Warning: Send only <span class=\"uppercase font-bold\">{coin}</span> to this deposit address via <span class=\"uppercase font-bold\">{network}</span> network.",
+    warningTemplate: "Attention : N'envoyez que du <span class=\"uppercase font-bold\">{coin}</span> à cette adresse de dépôt via le réseau <span class=\"uppercase font-bold\">{network}</span>.",
     summaryTitle: "Résumé de vos avoirs actuels",
     footerText: "Open Source | Automatisé via GitHub Actions",
     copied: "Adresse copiée !"
@@ -54,7 +54,7 @@ const translations = {
     step1: "1. Seleccione Moneda",
     step2: "2. Seleccione Red",
     copyBtn: "Copiar Dirección",
-    warningTemplate: "Warning: Send only <span class=\"uppercase font-bold\">{coin}</span> to this deposit address via <span class=\"uppercase font-bold\">{network}</span> network.",
+    warningTemplate: "Advertencia: Envíe solo <span class=\"uppercase font-bold\">{coin}</span> a esta dirección a través de la red <span class=\"uppercase font-bold\">{network}</span>.",
     summaryTitle: "Resumen de tenencias actuales",
     footerText: "Código Abierto | Automatizado vía GitHub Actions",
     copied: "¡Dirección copiada!"
@@ -69,7 +69,7 @@ const translations = {
     step1: "1. Выберите монету",
     step2: "2. Выберите сеть",
     copyBtn: "Скопировать адрес",
-    warningTemplate: "Warning: Send only <span class=\"uppercase font-bold\">{coin}</span> to this deposit address via <span class=\"uppercase font-bold\">{network}</span> network.",
+    warningTemplate: "Внимание: Отправляйте только <span class=\"uppercase font-bold\">{coin}</span> на этот адрес через сеть <span class=\"uppercase font-bold\">{network}</span>.",
     summaryTitle: "Сводка текущих активов",
     footerText: "Открытый исходный код | Автоматизировано через GitHub Actions",
     copied: "Адрес скопирован!"
@@ -84,7 +84,7 @@ const translations = {
     step1: "1. حدد العملة",
     step2: "2. حدد الشبكة",
     copyBtn: "نسخ العنوان",
-    warningTemplate: "Warning: Send only <span class=\"uppercase font-bold\">{coin}</span> to this deposit address via <span class=\"uppercase font-bold\">{network}</span> network.",
+    warningTemplate: "تحذير: أرسل فقط <span class=\"uppercase font-bold\">{coin}</span> إلى هذا العنوان عبر شبكة <span class=\"uppercase font-bold\">{network}</span>.",
     summaryTitle: "ملخص المقتنيات الحالية",
     footerText: "مفتوح المصدر | تشغيل آلي عبر GitHub Actions",
     copied: "تم نسخ العنوان!"
@@ -99,7 +99,7 @@ const translations = {
     step1: "1. コインを選択",
     step2: "2. ネットワークを選択",
     copyBtn: "アドレスをコピー",
-    warningTemplate: "Warning: Send only <span class=\"uppercase font-bold\">{coin}</span> to this deposit address via <span class=\"uppercase font-bold\">{network}</span> network.",
+    warningTemplate: "警告: <span class=\"uppercase font-bold\">{coin}</span> のみを <span class=\"uppercase font-bold\">{network}</span> ネットワーク経由でこのアドレスに送信してください。",
     summaryTitle: "現在の保有資産の概要",
     footerText: "オープンソース | GitHub Actions による自動化",
     copied: "アドレスをコピーしました！"
@@ -114,7 +114,7 @@ const translations = {
     step1: "1. Coin wählen",
     step2: "2. Netzwerk wählen",
     copyBtn: "Adresse kopieren",
-    warningTemplate: "Warning: Send only <span class=\"uppercase font-bold\">{coin}</span> to this deposit address via <span class=\"uppercase font-bold\">{network}</span> network.",
+    warningTemplate: "Warnung: Senden Sie nur <span class=\"uppercase font-bold\">{coin}</span> an diese Adresse über das <span class=\"uppercase font-bold\">{network}</span> Netzwerk.",
     summaryTitle: "Zusammenfassung der aktuellen Bestände",
     footerText: "Open Source | Automatisiert über GitHub Actions",
     copied: "Adresse kopiert!"
@@ -126,6 +126,8 @@ let currentLang = localStorage.getItem("appLang") || "en";
 function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem("appLang", lang);
+  // keep window-scoped currentLang in sync so other scripts can read it
+  window.currentLang = currentLang;
   
   if (lang === "ar") {
     document.body.setAttribute("dir", "rtl");
