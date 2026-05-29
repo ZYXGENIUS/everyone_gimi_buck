@@ -1,0 +1,8 @@
+{
+  "name": "everyone-gimi-buck",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "update": "node script/update_balances.js"
+  }
+}
