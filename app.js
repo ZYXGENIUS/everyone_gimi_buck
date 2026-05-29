@@ -27,13 +27,15 @@ function renderData(data) {
     document.getElementById('progressPercentage').innerText = displayPercent + '%';
 
     // Update Balances Summary
-    document.getElementById('total-usdc').innerText = (data.balances.USDC_ETH.amount + data.balances.USDC_ARB.amount + data.balances.USDC_BASE.amount + data.balances.USDC_BSC.amount + data.balances.USDC_SOL.amount).toFixed(2);
-    document.getElementById('total-usdt').innerText = (data.balances.USDT_ETH.amount + data.balances.USDT_ARB.amount + data.balances.USDT_BSC.amount + data.balances.USDT_TRX.amount + data.balances.USDT_SOL.amount).toFixed(2);
+    document.getElementById('total-usdc').innerText = (data.balances.USDC_ETH.amount + data.balances.USDC_ARB.amount + data.balances.USDC_BASE.amount + data.balances.USDC_BSC.amount + data.balances.USDC_POLYGON.amount + data.balances.USDC_SOL.amount).toFixed(2);
+    document.getElementById('total-usdt').innerText = (data.balances.USDT_ETH.amount + data.balances.USDT_ARB.amount + data.balances.USDT_BSC.amount + data.balances.USDT_POLYGON.amount + data.balances.USDT_TRX.amount + data.balances.USDT_SOL.amount).toFixed(2);
     document.getElementById('total-btc').innerText = data.balances.BTC.amount.toFixed(4);
     document.getElementById('total-eth').innerText = data.balances.ETH.amount.toFixed(4);
     document.getElementById('total-bnb').innerText = data.balances.BNB.amount.toFixed(4);
     document.getElementById('total-sol').innerText = data.balances.SOL.amount.toFixed(2);
     document.getElementById('total-trx').innerText = data.balances.TRX.amount.toFixed(2);
+    document.getElementById('total-matic').innerText = data.balances.MATIC.amount.toFixed(2);
+    document.getElementById('total-doge').innerText = data.balances.DOGE.amount.toFixed(2);
 
     globalData = data;
     // Initial coin selection
@@ -51,12 +53,14 @@ const coinNetworks = {
         { id: 'ARB', name: 'Arbitrum One' },
         { id: 'BASE', name: 'Base' },
         { id: 'BSC', name: 'BNB Smart Chain (BEP-20)' },
+        { id: 'POLYGON', name: 'Polygon (ERC-20)' },
         { id: 'SOL', name: 'Solana (SPL)' }
     ],
     'USDT': [
         { id: 'ETH', name: 'Ethereum (ERC-20)' },
         { id: 'ARB', name: 'Arbitrum One' },
         { id: 'BSC', name: 'BNB Smart Chain (BEP-20)' },
+        { id: 'POLYGON', name: 'Polygon (ERC-20)' },
         { id: 'TRX', name: 'Tron (TRC-20)' },
         { id: 'SOL', name: 'Solana (SPL)' }
     ],
@@ -76,6 +80,12 @@ const coinNetworks = {
     ],
     'TRX': [
         { id: 'TRX', name: 'Tron (TRC-20)' }
+    ],
+    'MATIC': [
+        { id: 'POLYGON', name: 'Polygon Network' }
+    ],
+    'DOGE': [
+        { id: 'DOGE', name: 'Dogecoin Network' }
     ]
 };
 
@@ -128,8 +138,8 @@ function selectNetwork(netId, btnElement) {
     
     const address = globalData.addresses[netId];
     document.getElementById('display-address').innerText = address;
-    document.getElementById('warn-coin').innerText = currentCoin;
-    document.getElementById('warn-network').innerText = btnElement.innerText;
+    // Update warning dynamically
+    updateWarningText();
 
     const qrContainer = document.getElementById('qr-code');
     qrContainer.innerHTML = '';
@@ -143,9 +153,27 @@ function selectNetwork(netId, btnElement) {
 function copyDepositAddress() {
     const text = document.getElementById('display-address').innerText;
     navigator.clipboard.writeText(text).then(() => {
-        alert("Address Copied!");
+        const msg = (typeof window.translations !== 'undefined') ? window.translations[window.currentLang].copied : "Address Copied!"; alert(msg);
     }).catch(console.error);
 }
 
 // Init
 window.onload = fetchData;
+
+function updateWarningText() {
+    if(!currentCoin || !currentNetwork) return;
+    
+    // Attempt to get the latest network name from UI
+    let netName = "this network";
+    document.querySelectorAll('.net-btn').forEach(btn => {
+        if(btn.classList.contains('border-indigo-600')) {
+             netName = btn.innerText;
+        }
+    });
+
+    const warnEl = document.getElementById('warn-text');
+    if(warnEl && typeof window.translations !== 'undefined') {
+        const t = window.translations[window.currentLang];
+        warnEl.innerHTML = t.warnPrefix + ' <span class="uppercase font-bold">' + currentCoin + '</span> ' + t.warnMiddle + ' <span class="uppercase font-bold">' + netName + '</span> ' + t.warnSuffix;
+    }
+}
