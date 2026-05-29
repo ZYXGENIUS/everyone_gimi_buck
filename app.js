@@ -34,7 +34,6 @@ function renderData(data) {
     document.getElementById('total-bnb').innerText = data.balances.BNB.amount.toFixed(4);
     document.getElementById('total-sol').innerText = data.balances.SOL.amount.toFixed(2);
     document.getElementById('total-trx').innerText = data.balances.TRX.amount.toFixed(2);
-    document.getElementById('total-matic').innerText = data.balances.MATIC.amount.toFixed(2);
     document.getElementById('total-doge').innerText = data.balances.DOGE.amount.toFixed(2);
 
     globalData = data;
@@ -80,9 +79,6 @@ const coinNetworks = {
     ],
     'TRX': [
         { id: 'TRX', name: 'Tron (TRC-20)' }
-    ],
-    'MATIC': [
-        { id: 'POLYGON', name: 'Polygon Network' }
     ],
     'DOGE': [
         { id: 'DOGE', name: 'Dogecoin Network' }
@@ -174,6 +170,8 @@ function updateWarningText() {
     const warnEl = document.getElementById('warn-text');
     if(warnEl && typeof window.translations !== 'undefined') {
         const t = window.translations[window.currentLang];
-        warnEl.innerHTML = t.warnPrefix + ' <span class="uppercase font-bold">' + currentCoin + '</span> ' + t.warnMiddle + ' <span class="uppercase font-bold">' + netName + '</span> ' + t.warnSuffix;
+        if(t.warningTemplate) {
+            warnEl.innerHTML = t.warningTemplate.replace('{coin}', currentCoin).replace('{network}', netName);
+        }
     }
 }
