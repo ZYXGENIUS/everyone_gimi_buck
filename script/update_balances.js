@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_FILE = path.join(__dirname, '../data.json');
 
-// RPC helper to get native base coin balance (ETH, BNB)
+// RPC helper to get native base coin balance (ETH, BNB, MATIC)
 async function fetchEvmBalance(rpc, address) {
   if (!address || address.startsWith('0x00000')) return 0;
   try {
@@ -41,13 +41,15 @@ async function main() {
 
     // 1. Fetch prices from CoinGecko
     console.log("Fetching prices from CoinGecko...");
-    const cgRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin,tron&vs_currencies=usd');
+    const cgRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin,tron,matic-network,dogecoin&vs_currencies=usd');
     const prices = (await cgRes.json()) || {};
     const btcPrice = prices.bitcoin?.usd || 0;
     const ethPrice = prices.ethereum?.usd || 0;
     const solPrice = prices.solana?.usd || 0;
     const bnbPrice = prices.binancecoin?.usd || 0;
     const trxPrice = prices.tron?.usd || 0;
+    const maticPrice = prices['matic-network']?.usd || 0;
+    const dogePrice = prices.dogecoin?.usd || 0;
 
     // 2. Fetch BTC Balance
     console.log("Fetching BTC balance...");
@@ -61,12 +63,25 @@ async function main() {
       }
     }
 
+    // Fetch DOGE Balance
+    console.log("Fetching DOGE balance...");
+    if(addresses.DOGE && !addresses.DOGE.includes("your") && addresses.DOGE !== "D8vjQjxxxxxxxxxxxxxxxxxxxxxxx") {
+      const dogeRes = await fetch(`https://api.blockcypher.com/v1/doge/main/addrs/${addresses.DOGE}/balance`);
+      if (dogeRes.ok) {
+        const dogeData = await dogeRes.json();
+        const dogeCount = (dogeData.balance || 0) / 1e8;
+        data.balances.DOGE.amount = dogeCount;
+        data.balances.DOGE.valueUSD = dogeCount * dogePrice;
+      }
+    }
+
     // 3. Setup EVM RPC Nodes
     const evmNodes = {
       ETH: { rpc: 'https://cloudflare-eth.com' },
       ARB: { rpc: 'https://arb1.arbitrum.io/rpc' },
       BASE: { rpc: 'https://mainnet.base.org' },
-      BSC: { rpc: 'https://bsc-dataseed.binance.org' }
+      BSC: { rpc: 'https://bsc-dataseed.binance.org' },
+      POLYGON: { rpc: 'https://polygon-rpc.com' }
     };
 
     console.log("Fetching EVM Balances...");
@@ -78,6 +93,9 @@ async function main() {
     data.balances.BNB.amount = await fetchEvmBalance(evmNodes.BSC.rpc, addresses.BSC);
     data.balances.BNB.valueUSD = data.balances.BNB.amount * bnbPrice;
 
+    data.balances.MATIC.amount = await fetchEvmBalance(evmNodes.POLYGON.rpc, addresses.POLYGON);
+    data.balances.MATIC.valueUSD = data.balances.MATIC.amount * maticPrice;
+
     // Stablecoins
     data.balances.USDC_ETH.amount = await fetchEvmTokenBalance(evmNodes.ETH.rpc, '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', addresses.ETH, 6);
     data.balances.USDT_ETH.amount = await fetchEvmTokenBalance(evmNodes.ETH.rpc, '0xdAC17F958D2ee523a2206206994597C13D831ec7', addresses.ETH, 6);
@@ -87,12 +105,14 @@ async function main() {
 
     data.balances.USDC_BASE.amount = await fetchEvmTokenBalance(evmNodes.BASE.rpc, '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', addresses.BASE, 6);
     
-    // BSC Stablecoins use 18 decimals
     data.balances.USDC_BSC.amount = await fetchEvmTokenBalance(evmNodes.BSC.rpc, '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d', addresses.BSC, 18);
     data.balances.USDT_BSC.amount = await fetchEvmTokenBalance(evmNodes.BSC.rpc, '0x55d398326f99059fF775485246999027B3197955', addresses.BSC, 18);
 
+    data.balances.USDC_POLYGON.amount = await fetchEvmTokenBalance(evmNodes.POLYGON.rpc, '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359', addresses.POLYGON, 6);
+    data.balances.USDT_POLYGON.amount = await fetchEvmTokenBalance(evmNodes.POLYGON.rpc, '0xc2132D05D31c914a87C6611C10748AEb04B58e8F', addresses.POLYGON, 6);
+
     // Map stablecoin values 1:1
-    ['USDC_ETH', 'USDT_ETH', 'USDC_ARB', 'USDT_ARB', 'USDC_BASE', 'USDC_BSC', 'USDT_BSC'].forEach(key => {
+    ['USDC_ETH', 'USDT_ETH', 'USDC_ARB', 'USDT_ARB', 'USDC_BASE', 'USDC_BSC', 'USDT_BSC', 'USDC_POLYGON', 'USDT_POLYGON'].forEach(key => {
         if (data.balances[key]) data.balances[key].valueUSD = data.balances[key].amount;
     });
 

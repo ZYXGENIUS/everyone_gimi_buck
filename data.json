@@ -3,13 +3,15 @@
   "totalRaisedUSD": 0,
   "goalUSD": 7000000000,
   "addresses": {
-    "BTC": "bc1qu3n0zz3zrx9uxlm3x3atc95p3edckqjjsfvxc4",
-    "ETH": "0x81C13DB23bb70a12364FE6e5D4eB93cc2EbBDF81",
-    "ARB": "0x81C13DB23bb70a12364FE6e5D4eB93cc2EbBDF81",
-    "BASE": "0x81C13DB23bb70a12364FE6e5D4eB93cc2EbBDF81",
-    "BSC": "0x81C13DB23bb70a12364FE6e5D4eB93cc2EbBDF81",
-    "TRX": "TDdPf5zhqsftg9TT8YhrEWrhtqg5BPoRES",
-    "SOL": "6d6DjkgaHnzDqE6KSmgFRPzeFRm8n9AUxW7dH4PYVsEK"
+    "BTC": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+    "ETH": "0x0000000000000000000000000000000000000000",
+    "ARB": "0x0000000000000000000000000000000000000000",
+    "BASE": "0x0000000000000000000000000000000000000000",
+    "BSC": "0x0000000000000000000000000000000000000000",
+    "POLYGON": "0x0000000000000000000000000000000000000000",
+    "TRX": "T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb",
+    "SOL": "11111111111111111111111111111111",
+    "DOGE": "D8vjQjxxxxxxxxxxxxxxxxxxxxxxx"
   },
   "balances": {
     "BTC": { "amount": 0, "valueUSD": 0 },
@@ -17,6 +19,8 @@
     "BNB": { "amount": 0, "valueUSD": 0 },
     "TRX": { "amount": 0, "valueUSD": 0 },
     "SOL": { "amount": 0, "valueUSD": 0 },
+    "MATIC": { "amount": 0, "valueUSD": 0 },
+    "DOGE": { "amount": 0, "valueUSD": 0 },
     "USDC_ETH": { "amount": 0, "valueUSD": 0 },
     "USDT_ETH": { "amount": 0, "valueUSD": 0 },
     "USDC_ARB": { "amount": 0, "valueUSD": 0 },
@@ -24,6 +28,8 @@
     "USDC_BASE": { "amount": 0, "valueUSD": 0 },
     "USDC_BSC": { "amount": 0, "valueUSD": 0 },
     "USDT_BSC": { "amount": 0, "valueUSD": 0 },
+    "USDC_POLYGON": { "amount": 0, "valueUSD": 0 },
+    "USDT_POLYGON": { "amount": 0, "valueUSD": 0 },
     "USDT_TRX": { "amount": 0, "valueUSD": 0 },
     "USDC_SOL": { "amount": 0, "valueUSD": 0 },
     "USDT_SOL": { "amount": 0, "valueUSD": 0 }
