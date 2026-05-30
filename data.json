@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-29T00:00:00.000Z",
+  "lastUpdated": "2026-05-30T02:52:10.180Z",
   "totalRaisedUSD": 0,
   "goalUSD": 7000000000,
   "addresses": {
@@ -14,24 +14,81 @@
     "DOGE": "DKUYWxqEsd3dm8ZYDfRv9hqeuHndjH7gd7"
   },
   "balances": {
-    "BTC": { "amount": 0, "valueUSD": 0 },
-    "ETH": { "amount": 0, "valueUSD": 0 },
-    "BNB": { "amount": 0, "valueUSD": 0 },
-    "TRX": { "amount": 0, "valueUSD": 0 },
-    "SOL": { "amount": 0, "valueUSD": 0 },
-    "MATIC": { "amount": 0, "valueUSD": 0 },
-    "DOGE": { "amount": 0, "valueUSD": 0 },
-    "USDC_ETH": { "amount": 0, "valueUSD": 0 },
-    "USDT_ETH": { "amount": 0, "valueUSD": 0 },
-    "USDC_ARB": { "amount": 0, "valueUSD": 0 },
-    "USDT_ARB": { "amount": 0, "valueUSD": 0 },
-    "USDC_BASE": { "amount": 0, "valueUSD": 0 },
-    "USDC_BSC": { "amount": 0, "valueUSD": 0 },
-    "USDT_BSC": { "amount": 0, "valueUSD": 0 },
-    "USDC_POLYGON": { "amount": 0, "valueUSD": 0 },
-    "USDT_POLYGON": { "amount": 0, "valueUSD": 0 },
-    "USDT_TRX": { "amount": 0, "valueUSD": 0 },
-    "USDC_SOL": { "amount": 0, "valueUSD": 0 },
-    "USDT_SOL": { "amount": 0, "valueUSD": 0 }
+    "BTC": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "ETH": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "BNB": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "TRX": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "SOL": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "MATIC": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "DOGE": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDC_ETH": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDT_ETH": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDC_ARB": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDT_ARB": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDC_BASE": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDC_BSC": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDT_BSC": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDC_POLYGON": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDT_POLYGON": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDT_TRX": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDC_SOL": {
+      "amount": 0,
+      "valueUSD": 0
+    },
+    "USDT_SOL": {
+      "amount": 0,
+      "valueUSD": 0
+    }
   }
 }
